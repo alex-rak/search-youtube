@@ -1,4 +1,4 @@
-# searchyoutube
+# search-youtube
 
 ## Project setup
 ```
