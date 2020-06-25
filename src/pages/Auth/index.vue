@@ -1,8 +1,7 @@
 <template>
   <div class="auth">
     <form
-      class="form"
-      @submit="auth">
+      class="form">
       <img
         class="form__logo"
         src="@/assets/icons/logo.svg">
@@ -11,10 +10,15 @@
       </div>
       <label class="form__input">
         Логин
-        <a-input placeholder="Login" /></label>
+        <a-input
+          v-model="login"
+          placeholder="Login" />
+      </label>
       <label class="form__input">
         Пароль
-        <a-input-password placeholder="Password" />
+        <a-input-password
+          v-model="password"
+          placeholder="Password" />
       </label>
       <a-button
         class="form__button"
@@ -27,6 +31,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Auth",
   data() {
@@ -36,10 +41,18 @@ export default {
     };
   },
   methods: {
-    auth() {
-      console.log("ss");
-
-      this.$router.push({ name: "MainPage" });
+    ...mapActions("auth", [
+      "AUTH",
+    ]),
+    async auth() {
+      if (this.login && this.password) {
+        this.AUTH({
+          login: this.login,
+          password: this.password,
+        }).then(() => {
+          this.$router.push({ name: "MainPage" });
+        }).catch(() => { console.error("Ошибка авторизации"); });
+      }
     },
   },
 };

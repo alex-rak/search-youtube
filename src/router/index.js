@@ -35,4 +35,14 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const token = window.localStorage.getItem("youtube-token");
+  const userName = window.localStorage.getItem("youtube-user");
+  if ((!token || !userName) && to.name !== "Auth") {
+    next({ name: "Auth" });
+  } else {
+    next();
+  }
+});
+
 export default router;

@@ -10,13 +10,13 @@ const getters = {
 
 const actions = {
   SEARCH(context, request) {
-    console.log(process.env.VUE_APP_API_KEY2);
     return Axios.get("https://www.googleapis.com/youtube/v3/search", {
       params: {
         part: "snippet",
-        maxResults: 12,
+        maxResults: request.maxResults || 12,
         type: "video",
-        q: request,
+        q: request.search,
+        order: request.order || "relevance",
         key: process.env.VUE_APP_API_KEY2,
       },
     })
@@ -27,7 +27,6 @@ const actions = {
           ids.push(res.data.items[i].id.videoId);
         }
         const resView = await context.dispatch("GET_VIDEO_STATISTICS", ids);
-        console.log(resView);
         for (let i = 0; i < resView.data.items.length; i++) {
           const item = res.data.items.find(el => el.id.videoId === resView.data.items[i].id);
           item.snippet.views = resView.data.items[i].statistics.viewCount;
@@ -58,14 +57,10 @@ const actions = {
   SET_TYPE_GRID({ commit }, name) {
     commit("setTypeGrid", name);
   },
-  ADD_FAVOURITES(context, title) {
-    console.log("add favourites");
-  },
 };
 
 const mutations = {
   setResults(state, data) {
-    console.log("setResult", data);
     state.results = data;
   },
   setTypeGrid(state, name) {

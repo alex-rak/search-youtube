@@ -1,7 +1,7 @@
 <template>
   <div
     class="search"
-    :class="{'empty': !query}">
+    :class="{'empty': !query.search}">
     <div class="search__title">
       Поиск видео
     </div>
@@ -11,7 +11,7 @@
       placeholder="input search text"
       size="large"
       @search="onSearch">
-      <a-popover
+      <!-- <a-popover
         v-if="query"
         slot="suffix"
         v-model="visible"
@@ -25,11 +25,12 @@
             Перейти в избранное
           </router-link>
         </template>
-        <a-icon
-          type="heart"
-          style="color: #1390E5"
-          @click="addFavourites" />
-      </a-popover>
+      </a-popover> -->
+      <a-icon
+        slot="suffix"
+        type="heart"
+        style="color: #1390E5"
+        @click="openModal" />
       <a-button
         slot="enterButton"
         class="search__button"
@@ -37,15 +38,19 @@
         Поиск
       </a-button>
     </a-input-search>
+    <favourites-modal
+      v-if="visible"
+      :request="request"
+      @close="closeModal" />
     <div
-      v-if="query"
+      v-if="query.search"
       class="search__results">
       <div class="text">
         <span class="text__static">
           Видео по запросу
         </span>
         <span class="text__request">
-          &#171;{{ query }}&#187;
+          &#171;{{ query.search }}&#187;
         </span>
         <span class="text__counter">
           {{ counter ? counter : "0 результатов" }}
@@ -68,9 +73,13 @@
 </template>
 
 <script>
+import FavouritesModal from "@/components/FavouritesModal";
 import { mapActions, mapState } from "vuex";
 export default {
   name: "Search",
+  components: {
+    FavouritesModal,
+  },
   data() {
     return {
       searchField: null,
@@ -83,12 +92,17 @@ export default {
       "typeGrid",
     ]),
     query() {
-      return this.$route.query.search;
+      return this.$route.query;
+    },
+    request() {
+      return {
+        search: this.searchField,
+      };
     },
   },
   created() {
-    if (this.query) {
-      this.searchField = this.query;
+    if (this.query.search) {
+      this.searchField = this.query.search;
       this.setResults(this.query);
     }
   },
@@ -96,19 +110,26 @@ export default {
     ...mapActions("search", [
       "SEARCH", "SET_TYPE_GRID", "ADD_FAVOURITES",
     ]),
+    ...mapActions("favourites", [
+      "SAVE_FAVOURITES",
+    ]),
     onSearch() {
-      console.log(this.searchField, this.query);
       if (this.searchField && this.searchField !== this.query) {
         this.$router.push({ name: "MainPage", query: { search: this.searchField } });
-        this.setResults(this.searchField);
+        this.setResults({ search: this.searchField });
       }
     },
-    async setResults(text) {
-      const res = await this.SEARCH(text);
+    async setResults(data) {
+      const res = await this.SEARCH(data);
       this.counter = res.data.pageInfo.totalResults;
     },
-    addFavourites() {
-      this.ADD_FAVOURITES();
+    openModal() {
+      if (this.searchField) {
+        this.visible = true;
+      }
+    },
+    closeModal() {
+      this.visible = false;
     },
   },
 };

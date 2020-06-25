@@ -53,8 +53,6 @@ export default {
     },
     title() {
       const title = this.item.snippet.title;
-      console.log(title.length);
-
       if (this.type === "grid") {
         return title.length > 50 ? title.slice(0, 50) + "..." : title;
       }

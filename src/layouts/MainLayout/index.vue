@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "MainLayout",
   data() {
@@ -46,7 +47,11 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("auth", [
+      "removeToken",
+    ]),
     logOut() {
+      this.removeToken();
       this.$router.push({ name: "Auth" });
     },
   },
@@ -125,9 +130,6 @@ export default {
     background: #FAFAFA;
     margin: 0 auto;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 </style>
