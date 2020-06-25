@@ -26,6 +26,7 @@ const actions = {
         for (let i = 0; i < res.data.items.length; i++) {
           ids.push(res.data.items[i].id.videoId);
         }
+        // подтягиваем статистику просмотров
         const resView = await context.dispatch("GET_VIDEO_STATISTICS", ids);
         for (let i = 0; i < resView.data.items.length; i++) {
           const item = res.data.items.find(el => el.id.videoId === resView.data.items[i].id);

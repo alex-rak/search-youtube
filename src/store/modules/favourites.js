@@ -7,6 +7,10 @@ const getters = {
 };
 
 const actions = {
+  /**
+   * Изменение сохраненного запроса
+   * @param {Object} data избранное, кторое отредактировали
+   */
   UPDATE_FAVOURITES({ state, dispatch, commit }, data) {
     const index = state.favourites.findIndex(el => el.id === data.id);
     if (index !== -1) {
@@ -20,11 +24,18 @@ const actions = {
     commit("setFavourites", [...state.favourites, data]);
     dispatch("SAVE_INTO_LOCALSTORAGE");
   },
+  /**
+   * Получение избранного из локалсторадже по login
+   */
   GET_FAVOURITES({ commit, rootState }) {
     const allFavourites = JSON.parse(window.localStorage.getItem("youtube-favourites")) || [];
     const favorites = allFavourites.find(el => el.user === rootState.auth.user)?.favourites || [];
     commit("setFavourites", favorites);
   },
+  /**
+   * Сохранение в localStorage из state, если уже есть избранное юзера,
+   * то сохраянем туда, иначе создаем новый объект
+   */
   SAVE_INTO_LOCALSTORAGE({ rootState, state }) {
     const items = JSON.parse(window.localStorage.getItem("youtube-favourites")) || [];
     let item = items.find(el => el.user === rootState.auth.user);

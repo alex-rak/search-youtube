@@ -10,15 +10,19 @@ const getters = {
 };
 
 const actions = {
+  /**
+   * Логиним пользователя, генерируем случайный токен
+   * @param {Object} data данные пользователя
+   */
   AUTH({ commit }, data) {
-    const user = USERS.find(us => us.login === data.login);
+    const user = USERS.find(el => el.login === data.login);
     if (!user) {
       console.error("Пользователь не найден");
-      return;
+      return new Promise((resolve, reject) => reject(Error("Пользователь не найден 2")));
     }
     if (user.password !== data.password) {
       console.error("Не верный логин или пароль");
-      return;
+      return new Promise((resolve, reject) => reject(Error("Не верный логин или пароль 2")));
     }
     return Axios.get("https://helloacm.com/api/random/?n = 128")
       .then(res => {

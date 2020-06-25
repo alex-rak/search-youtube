@@ -45,15 +45,15 @@ export default {
       "AUTH",
     ]),
     async auth() {
-      console.log("auth");
-
       if (this.login && this.password) {
         this.AUTH({
           login: this.login,
           password: this.password,
-        }).then(() => {
+        }).then((res) => {
           this.$router.push({ name: "MainPage" });
-        }).catch(() => { console.error("Ошибка авторизации"); });
+        }).catch(() => {
+          console.error("Ошибка авторизации");
+        });
       }
     },
   },
