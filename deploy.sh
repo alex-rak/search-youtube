@@ -20,6 +20,6 @@ git commit -m 'deploy'
 # git push -f https://github.com/alex-rak/alex-rak.github.io.git master
 
 # если вы публикуете по адресу https://<USERNAME>.github.io/<REPO>
-git push -f https://alex-rah.github.io/search-youtube git master:gh-pages
+git push -f https://alex-rah.github.io/search-youtube.git master:gh-pages
 
 cd -
