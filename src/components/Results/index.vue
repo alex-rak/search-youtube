@@ -32,12 +32,11 @@ export default {
 
 <style lang="scss" scoped>
 .results {
-  width: 100%;
-  max-width: 1040px;
   display: flex;
   flex-wrap: wrap;
   margin: 0 -10px;
   &.list {
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin: 0 0;

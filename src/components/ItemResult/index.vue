@@ -90,11 +90,15 @@ export default {
 .item {
   width: calc(25% - 20px);
   margin: 0 10px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   &__image {
     width: 100%;
     object-fit: cover;
   }
   .text {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -126,8 +130,10 @@ export default {
     margin: 0 0;
     margin-bottom: 32px;
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: 90px;
+    min-height: fit-content;
     .item__image {
       width: 160px;
     }

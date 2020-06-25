@@ -50,7 +50,7 @@ export default {
       "REMOVE_FAVOURITES",
     ]),
     search(item) {
-      this.$router.push({ name: "MainPage", query: { ...item } });
+      this.$router.push({ name: "MainPage", query: { ...item, id: undefined } });
     },
     edit() {
       this.visible = true;
