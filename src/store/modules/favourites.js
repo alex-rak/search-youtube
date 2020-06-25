@@ -20,7 +20,7 @@ const actions = {
     commit("setFavourites", [...state.favourites, data]);
     dispatch("SAVE_INTO_LOCALSTORAGE");
   },
-  GET_FAVOURITES({ getters, commit, rootState }) {
+  GET_FAVOURITES({ commit, rootState }) {
     const allFavourites = JSON.parse(window.localStorage.getItem("youtube-favourites")) || [];
     const favorites = allFavourites.find(el => el.user === rootState.auth.user)?.favourites || [];
     commit("setFavourites", favorites);
