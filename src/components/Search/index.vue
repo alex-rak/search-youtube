@@ -27,6 +27,7 @@
         </template>
       </a-popover> -->
       <a-icon
+        v-if="query.search"
         slot="suffix"
         type="heart"
         style="color: #1390E5"
@@ -114,7 +115,7 @@ export default {
       "SAVE_FAVOURITES",
     ]),
     onSearch() {
-      if (this.searchField && this.searchField !== this.query) {
+      if (this.searchField && this.searchField !== this.query.search) {
         this.$router.push({ name: "MainPage", query: { search: this.searchField } });
         this.setResults({ search: this.searchField });
       }

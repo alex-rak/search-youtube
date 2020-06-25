@@ -12,6 +12,11 @@
         @click="edit">
         Изменить
       </a>
+      <a
+        class="button__remove"
+        @click="REMOVE_FAVOURITES(item.id)">
+        Удалить
+      </a>
     </div>
     <favourites-modal
       v-if="visible"
@@ -23,6 +28,7 @@
 
 <script>
 import FavouritesModal from "@/components/FavouritesModal";
+import { mapActions } from "vuex";
 export default {
   name: "ItemFavourit",
   components: {
@@ -40,6 +46,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions("favourites", [
+      "REMOVE_FAVOURITES",
+    ]),
     search(item) {
       this.$router.push({ name: "MainPage", query: { ...item } });
     },
@@ -59,6 +68,8 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #F1F1F1;
   &__title {
     font-weight: 500;
     font-size: 16px;
@@ -66,7 +77,12 @@ export default {
   &__buttons {
     display: flex;
     justify-content: space-between;
-    width: 150px;
+    a {
+      margin: 0 5px;
+      }
+    .button__remove {
+      color: red;
+    }
   }
 }
 </style>

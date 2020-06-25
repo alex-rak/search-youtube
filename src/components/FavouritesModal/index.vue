@@ -1,6 +1,8 @@
 <template>
   <a-modal
     v-model="visible"
+    :after-close="close"
+    centered
     :dialog-class="$s['modal']"
     :footer="null"
     :closable="false">
@@ -177,6 +179,7 @@ export default {
   margin-top: 35px;
   .button {
     width: 49%;
+    min-width: fit-content;
     font-size: 20px;
     height: 52px;
     color: #1390E5;

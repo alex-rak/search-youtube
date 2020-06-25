@@ -37,6 +37,10 @@ const actions = {
     item.favourites = state.favourites;
     window.localStorage.setItem("youtube-favourites", JSON.stringify(items));
   },
+  REMOVE_FAVOURITES({ commit, dispatch }, id) {
+    commit("removeFavourites", id);
+    dispatch("SAVE_INTO_LOCALSTORAGE");
+  },
 };
 
 const mutations = {
@@ -45,6 +49,10 @@ const mutations = {
   },
   updateFavourites(state, index, data) {
     state.favourites.splice(index, 0, data);
+  },
+  removeFavourites(state, id) {
+    const index = state.favourites.findIndex(el => el.id === id);
+    state.favourites.splice(index, 1);
   },
 };
 

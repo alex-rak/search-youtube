@@ -45,6 +45,8 @@ export default {
       "AUTH",
     ]),
     async auth() {
+      console.log("auth");
+
       if (this.login && this.password) {
         this.AUTH({
           login: this.login,
