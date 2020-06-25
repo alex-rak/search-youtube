@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div
     class="item"
     :class="{'list' : type === 'list'}">
@@ -13,16 +14,14 @@
       <a
         :href="'https://www.youtube.com/watch?v=' + id"
         target="_blank"
-        class="text__title">
-        {{ title }}
-      </a>
+        class="text__title"
+        v-html="title" />
       <div class="text__info">
         <a
           :href="'https://www.youtube.com/channel/'+ channelId"
           target="_blank"
-          class="text__info__channel">
-          {{ channelTitle }}
-        </a>
+          class="text__info__channel"
+          v-html="channelTitle" />
         <div class="text__info__views">
           {{ views }}
         </div>

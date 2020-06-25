@@ -115,11 +115,11 @@ export default {
         } else {
           this.UPDATE_FAVOURITES(this.result);
         }
-        this.close();
+        this.close(true);
       }
     },
-    close() {
-      this.$emit("close");
+    close(wasSave = false) {
+      this.$emit("close", wasSave);
     },
   },
 };

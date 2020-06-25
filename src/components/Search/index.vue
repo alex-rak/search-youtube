@@ -11,10 +11,10 @@
       placeholder="input search text"
       size="large"
       @search="onSearch">
-      <!-- <a-popover
-        v-if="query"
+      <a-popover
+        v-if="query.search"
         slot="suffix"
-        v-model="visible"
+        v-model="popOverVisible"
         placement="bottom"
         trigger="click">
         <template slot="title">
@@ -25,7 +25,7 @@
             Перейти в избранное
           </router-link>
         </template>
-      </a-popover> -->
+      </a-popover>
       <a-icon
         v-if="query.search"
         slot="suffix"
@@ -86,6 +86,7 @@ export default {
       searchField: null,
       counter: null,
       visible: false,
+      popOverVisible: false,
     };
   },
   computed: {
@@ -129,7 +130,10 @@ export default {
         this.visible = true;
       }
     },
-    closeModal() {
+    closeModal(wasSave) {
+      if (wasSave) {
+        this.popOverVisible = true;
+      }
       this.visible = false;
     },
   },
