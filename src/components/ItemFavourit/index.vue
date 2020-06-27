@@ -85,4 +85,9 @@ export default {
     }
   }
 }
+@media screen and (max-device-width: 320px) {
+  .item-favourit {
+    padding: 15px 5px;
+  }
+}
 </style>

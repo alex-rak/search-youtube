@@ -132,4 +132,15 @@ export default {
     height: 100%;
   }
 }
+@media screen and(max-device-width: 320px){
+  .main-layout {
+    .header {
+      &__tabs {
+        &-item {
+          padding: 0 5px;
+        }
+      }
+    }
+  }
+}
 </style>

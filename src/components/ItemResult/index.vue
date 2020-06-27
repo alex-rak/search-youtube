@@ -154,4 +154,14 @@ export default {
     }
   }
 }
+@media screen and(max-device-width: 768px){
+  .item {
+    width: calc(50% - 20px);
+  }
+}
+@media screen and(max-device-width: 320px){
+  .item {
+    width: calc(100% - 20px);
+  }
+}
 </style>
